@@ -1,0 +1,22 @@
+{
+  "name": "osma-health-workers",
+  "version": "1.0.0",
+  "description": "osma-health-workers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hotosm/osma-health-workers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hotosm/osma-health-workers/issues"
+  },
+  "homepage": "https://github.com/hotosm/osma-health-workers#readme",
+  "dependencies": {
+    "osmlint": "git+https://git@github.com/hotosm/osmlint.git"
+  }
+}
