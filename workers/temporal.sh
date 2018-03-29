@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./temporal.sh path_to_qa_tiles.mbtiles
+# ./temporal.sh country
 # runs filterResidentialBuildings OSMLint validator and creates a FeatureCollection
 
 COUNTRY=$1

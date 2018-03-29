@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hotosm/osma-health-workers#readme",
   "dependencies": {
+    "minimist": "^1.2.0",
     "osmlint": "git+https://git@github.com/hotosm/osmlint.git"
   }
 }
