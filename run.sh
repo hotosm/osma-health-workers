@@ -9,4 +9,4 @@ wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
 
 ./workers/temporal.sh $COUNTRY $WORKDIR
-
+node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
