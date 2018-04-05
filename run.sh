@@ -5,8 +5,8 @@ WORKDIR="data"
 COUNTRY=$1
 
 
-# wget "$TilesURL/$COUNTRY.mbtiles.gz"
-# gunzip "$COUNTRY.mbtiles.gz"
+wget "$TilesURL/$COUNTRY.mbtiles.gz"
+gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
 ./workers/temporal.sh $COUNTRY $WORKDIR
