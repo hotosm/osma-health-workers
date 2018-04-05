@@ -19,3 +19,6 @@ node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
 
 # filter all residential buildings and get edit receny stats
 node ./workers/edit-recency.js $COUNTRY $WORKDIR
+
+# run stats for duplicate buildings
+node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
