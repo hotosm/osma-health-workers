@@ -11,6 +11,9 @@ gunzip "$COUNTRY.mbtiles.gz"
 # extract all the residential buildings
 ./workers/temporal.sh $COUNTRY $WORKDIR
 
+# create a tileset of all residential buildings
+tippecanoe -f -z 15 -Z 12 -l osm $WORKDIR/$COUNTRY/buildings.json -o $WORKDIR/$COUNTRY/buildings.mbtiles
+
 # run attribute completeness validator and get stats
 node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
 
