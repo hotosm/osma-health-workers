@@ -3,9 +3,9 @@
 TilesURL="https://s3.amazonaws.com/mapbox/osm-qa-tiles-production/latest.country"
 WORKDIR="data"
 COUNTRY=$1
+S3BUCKET=$2
 
-
-wget "$TilesURL/$COUNTRY.mbtiles.gz"
+# wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
@@ -22,3 +22,5 @@ node ./workers/edit-recency.js $COUNTRY $WORKDIR
 
 # run stats for duplicate buildings
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
+
+aws s3 sync $WORKDIR/$COUNTRY s3://$S3BUCKET/$WORKDIR/$COUNTRY
