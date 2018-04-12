@@ -24,7 +24,7 @@ node ./workers/edit-recency.js $COUNTRY $WORKDIR
 aws s3 cp s3://hot-osm/$COUNTRY-predictions.json $WORKDIR/$COUNTRY
 
 # create tileset for map completeness
-node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l -f -o /$WORKDIR/$COUNTRY/map-completeness.mbtiles
+node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o /$WORKDIR/$COUNTRY/map-completeness.mbtiles
 
 # run stats for duplicate buildings
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
