@@ -23,7 +23,7 @@ node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
 node ./workers/edit-recency.js $COUNTRY $WORKDIR
 
 # download map completeness json
-aws s3 cp s3://hot-osm/$COUNTRY-predictions.json $WORKDIR/$COUNTRY
+wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predictions.json -O $WORKDIR/$COUNTRY/$COUNTRY-predictions.json
 
 # create tileset for map completeness
 node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
