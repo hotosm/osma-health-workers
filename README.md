@@ -5,6 +5,7 @@ Analysis workers for OSM Analytics Health Module. Read more [about the project h
 
 1. `npm install`
 2. Install [tippecanoe](https://github.com/mapbox/tippecanoe#installation)
+3. Install [mapbox-cli-py](https://github.com/mapbox/mapbox-cli-py)
 
 ## AOI
 The AOIs are stored in the `countries.json` file, in the following schema:
