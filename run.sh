@@ -5,7 +5,7 @@ WORKDIR="data"
 COUNTRY=$1
 S3BUCKET=$2
 
-# wget "$TilesURL/$COUNTRY.mbtiles.gz"
+wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
