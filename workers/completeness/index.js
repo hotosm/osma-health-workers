@@ -20,7 +20,6 @@ boundaries.features.forEach((b) => {
     const name = b.properties.name.toLowerCase();
 
     getAverage(bbox, mbtilesPath, (err, averageCompleteness) => {
-        console.log('name:', averageCompleteness);
         const boundaryLocation = workdir + '/' + country + '/' + name;
         let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
         buildingStats['averageCompleteness'] = averageCompleteness;
