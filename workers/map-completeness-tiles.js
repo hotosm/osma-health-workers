@@ -15,7 +15,5 @@ Object.keys(estimates).forEach((key) => {
     let geom = turfHelpers.feature(tilebelt.tileToGeoJSON(tile));
     geom.properties = estimates[key];
     data.push(geom);
-    // console.log(JSON.stringify(geom));
+    console.log(JSON.stringify(geom));
 });
-
-console.log(JSON.stringify(turfHelpers.featureCollection(data)));
