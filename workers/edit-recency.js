@@ -20,7 +20,7 @@ boundaries.features.forEach((b) => {
     const name = b.properties.name.toLowerCase();
 
     // run osmlint for each of the boundary and store stats in the workdir
-    osmlint.filterResidentialBuildings({zoom: 12, bbox: bbox}, mbtilesPath, (err, data) => {
+    osmlint.filterBuildings({zoom: 12, bbox: bbox}, mbtilesPath, (err, data) => {
         if (err) {
             console.error('Error:', err);
             return;
