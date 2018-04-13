@@ -4,8 +4,10 @@ TilesURL="https://s3.amazonaws.com/mapbox/osm-qa-tiles-production/latest.country
 WORKDIR="data"
 COUNTRY=$1
 S3BUCKET=$2
+MAPBOXACCOUNT=$3
+MAPBOXTOKEN=$4 # probably move to envvar when needed
 
-# wget "$TilesURL/$COUNTRY.mbtiles.gz"
+wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
@@ -20,7 +22,20 @@ node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
 # filter all residential buildings and get edit receny stats
 node ./workers/edit-recency.js $COUNTRY $WORKDIR
 
+# download map completeness json
+wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predictions.json -O $WORKDIR/$COUNTRY/$COUNTRY-predictions.json
+
+# create tileset for map completeness
+node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
+
 # run stats for duplicate buildings
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
 
+# copy the results to S3
 aws s3 sync $WORKDIR/$COUNTRY s3://$S3BUCKET/$WORKDIR/$COUNTRY
+
+# upload completeness tileset to Mapbox
+mapbox --access-token $MAPBOXTOKEN upload $MAPBOXACCOUNT.$COUNTRY-completeness $WORKDIR/$COUNTRY/completeness.mbtiles
+
+# upload building tileset to Mapbox
+mapbox --access-token $MAPBOXTOKEN upload $MAPBOXACCOUNT.$COUNTRY-buildings $WORKDIR/$COUNTRY/buildings.mbtiles
