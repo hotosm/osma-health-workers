@@ -8,4 +8,4 @@ const argv = require('minimist')(process.argv.slice(2));
 const estimateFile = argv._[0];
 
 const estimates = JSON.parse(fs.readFileSync(estimateFile, { 'encoding': 'utf-8' }));
-console.log(_.map(estimates, 'index'));
+console.log(JSON.stringify(_.uniq(_.map(estimates, 'index'))));
