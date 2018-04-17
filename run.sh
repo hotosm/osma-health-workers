@@ -28,6 +28,12 @@ wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predictions.json -O $WORKDIR/$COUN
 # create tileset for map completeness
 node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
 
+# get the domain of predicted indices
+node ./workers/completeness-domain.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json > $WORKDIR/$COUNTRY/domain.json
+
+# prepare completeness per aoi
+node ./workers/completeness-aoi/index.js $COUNTRY $WORKDIR
+
 # run stats for duplicate buildings
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
 
