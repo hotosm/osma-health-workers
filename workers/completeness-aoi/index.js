@@ -48,7 +48,9 @@ function getAverage(bbox, mbtilesPath, callback) {
         }
     })
     .on('end', function() {
-        averageCompleteness = averageCompleteness/units;
+        if (units) {
+            averageCompleteness = averageCompleteness/units;
+        }
         callback(null, averageCompleteness);
     });
 }
