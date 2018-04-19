@@ -32,7 +32,6 @@ wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predict.json -O $WORKDIR/$COUNTRY/
 
 # create tileset for map completeness
 echo '6. Create map completeness tileset...'
-
 node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predict.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
 
 # get the domain of predicted indices

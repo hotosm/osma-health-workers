@@ -20,7 +20,7 @@ const boundaries = countries[country];
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
-    const name = b.properties.name.toLowerCase();
+    const name = b.properties.id.toLowerCase();
 
      // run osmlint for each of the boundary and store stats in the workdir
      osmlint.untaggedWays({zoom: 12, bbox: bbox}, mbtilesPath, (err, data) => {
