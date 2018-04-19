@@ -18,7 +18,7 @@ const boundaries = countries[country];
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
-    const name = b.properties.name.toLowerCase();
+    const aoi = b.properties.id.toLowerCase();
 
     // run osmlint for each of the boundary and store stats in the workdir
     osmlint.duplicateBuildings({zoom: 12, bbox: bbox}, mbtilesPath, (err, data) => {
@@ -28,7 +28,7 @@ boundaries.features.forEach((b) => {
         }
 
         // write the duplicate count into building-stats.json
-        const boundaryLocation = workdir + '/' + country + '/' + name;
+        const boundaryLocation = workdir + '/' + country + '/' + aoi;
         let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
         buildingStats['duplicateCount'] = data;
 

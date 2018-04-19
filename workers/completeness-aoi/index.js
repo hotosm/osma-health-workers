@@ -17,10 +17,10 @@ const boundaries = countries[country];
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
-    const name = b.properties.name.toLowerCase();
+    const aoi = b.properties.id.toLowerCase();
 
     getAverage(bbox, mbtilesPath, (err, averageCompleteness) => {
-        const boundaryLocation = workdir + '/' + country + '/' + name;
+        const boundaryLocation = workdir + '/' + country + '/' + aoi;
         let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
         buildingStats['averageCompleteness'] = averageCompleteness;
         fs.writeFileSync(boundaryLocation + '/building-stats.json', JSON.stringify(buildingStats), {'encoding': 'utf-8'});

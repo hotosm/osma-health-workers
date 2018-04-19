@@ -31,7 +31,7 @@ const boundaries = countries[country];
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
-    const name = b.properties.name.toLowerCase();
+    const aoi = b.properties.id.toLowerCase();
 
     // run osmlint for each of the boundary and store stats in the workdir
     osmlint.incompleteResidentialBuildings({zoom: 12, bbox: bbox}, mbtilesPath, (err, data) => {
@@ -39,7 +39,7 @@ boundaries.features.forEach((b) => {
             console.error('Error:', err);
             return;
         }
-        const boundaryLocation = workdir + '/' + country + '/' + name;
+        const boundaryLocation = workdir + '/' + country + '/' + aoi;
         if (!fs.existsSync(boundaryLocation)) {
             fs.mkdirSync(boundaryLocation);
         }
