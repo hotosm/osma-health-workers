@@ -47,10 +47,15 @@ echo '8. Get duplicate buildings stats...'
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
 
 # run stats for untagged ways
+echo '9. Get untagged ways stats'
 node ./workers/untagged-ways.js $COUNTRY $WORKDIR > /dev/null
 
+# aggregate 
+echo '10. Aggregate...'
+node ./workers/aggregate.js $COUNTRY $WORKDIR > /dev/null
+
 # copy the results to S3
-echo '9. Upload results...'
+echo '11. Upload results...'
 aws s3 sync $WORKDIR/$COUNTRY s3://$S3BUCKET/$WORKDIR/$COUNTRY
 
 # upload completeness tileset to Mapbox
