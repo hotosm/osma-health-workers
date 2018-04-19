@@ -37,6 +37,9 @@ node ./workers/completeness-aoi/index.js $COUNTRY $WORKDIR
 # run stats for duplicate buildings
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
 
+# run stats for untagged ways
+node ./workers/untagged-ways.js $COUNTRY $WORKDIR > /dev/null
+
 # copy the results to S3
 aws s3 sync $WORKDIR/$COUNTRY s3://$S3BUCKET/$WORKDIR/$COUNTRY
 
