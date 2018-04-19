@@ -6,7 +6,8 @@
           "type": "Feature",
           "properties": {
             "type": "village",
-            "name": "MOTOPI"
+            "name": "Motopi",
+            "id": "motopi"
           },
           "geometry": {
             "type": "Polygon",
@@ -1216,7 +1217,8 @@
           "type": "Feature",
           "properties": {
             "type": "village",
-            "name": "NATA"
+            "name": "Nata",
+            "id": "nata"
           },
           "geometry": {
             "type": "Polygon",
@@ -2768,7 +2770,8 @@
           "type": "Feature",
           "properties": {
             "type": "village",
-            "name": "MATHATHANE"
+            "name": "Mathathane",
+            "id": "mathathane"
           },
           "geometry": {
             "type": "Polygon",
@@ -10274,6 +10277,7 @@
           "type": "Feature",
           "properties": {
             "name": "Tsau",
+            "id": "tsau",
             "type": "village"
           },
           "geometry": {
@@ -12948,6 +12952,7 @@
           "type": "Feature",
           "properties": {
             "name": "Gumare",
+            "id": "gumare",
             "type": "village"
           },
           "geometry": {
@@ -15158,6 +15163,7 @@
           "type": "Feature",
           "properties": {
             "name": "Chobe District",
+            "id": "chobe",
             "type": "district"
           },
           "geometry": {
