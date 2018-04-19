@@ -11,33 +11,43 @@ wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
+echo '1. Extract buildings...'
 ./workers/temporal.sh $COUNTRY $WORKDIR
 
-# create a tileset of all residential buildings
+# create a tileset of all buildings
+echo '2. Creating tileset of all buildings...'
 tippecanoe -f -z 15 -Z 12 -l osm $WORKDIR/$COUNTRY/buildings.json -o $WORKDIR/$COUNTRY/buildings.mbtiles
 
 # run attribute completeness validator and get stats
+echo '3. Run attribute completeness validator...'
 node ./workers/attribute-completeness.js $COUNTRY $WORKDIR
 
 # filter all residential buildings and get edit receny stats
+echo '4. Get edit recency stats...'
 node ./workers/edit-recency.js $COUNTRY $WORKDIR
 
 # download map completeness json
-wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predictions.json -O $WORKDIR/$COUNTRY/$COUNTRY-predictions.json
+echo '5. Download compeleteness predictions...'
+wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predict.json -O $WORKDIR/$COUNTRY/$COUNTRY-predict.json
 
 # create tileset for map completeness
-node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
+echo '6. Create map completeness tileset...'
+
+node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predict.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
 
 # get the domain of predicted indices
-node ./workers/completeness-domain.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json > $WORKDIR/$COUNTRY/domain.json
+node ./workers/completeness-domain.js $WORKDIR/$COUNTRY/$COUNTRY-predict.json > $WORKDIR/$COUNTRY/domain.json
 
 # prepare completeness per aoi
+echo '7. Prepare completeness per AoI...'
 node ./workers/completeness-aoi/index.js $COUNTRY $WORKDIR
 
 # run stats for duplicate buildings
+echo '8. Get duplicate buildings stats...'
 node ./workers/duplicate-buildings.js $COUNTRY $WORKDIR > /dev/null
 
 # copy the results to S3
+echo '9. Upload results...'
 aws s3 sync $WORKDIR/$COUNTRY s3://$S3BUCKET/$WORKDIR/$COUNTRY
 
 # upload completeness tileset to Mapbox
