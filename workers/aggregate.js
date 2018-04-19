@@ -19,13 +19,13 @@ boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
     const aoi = b.properties.id.toLowerCase();
 
-  // write the duplicate count into building-stats.json
   let stats = {};
   const boundaryLocation = workdir + '/' + country + '/' + aoi;
   const buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
   const timeBins = JSON.parse(fs.readFileSync(boundaryLocation + '/time-bins.json'), {'encoding': 'utf-8'});
   stats['building-stats'] = buildingStats;
   stats['time-bins'] = timeBins;
+  stats['timestamp'] = new Date().toISOString();
 
   fs.writeFileSync(boundaryLocation + '/stats.json', JSON.stringify(stats), { 'encoding': 'utf-8' });
 });
