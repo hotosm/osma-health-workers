@@ -3,12 +3,15 @@
 module.exports = function(data, tile, writeData, done) {
     var units = 0;
     var sumIndex = 0;
+    var population = 0;
     data.completeness.completeness.features.forEach(function (feature) {
         if (feature.properties.index) {
             units = units + 1;
             sumIndex = sumIndex + feature.properties.index;
+            var actual = JSON.parse(feature.properties.actual);
+            population = population + actual['pop_sum'];
         }
     })
     
-    done(null, {'units': units, 'sumIndex': sumIndex});
+    done(null, {'units': units, 'sumIndex': sumIndex, 'population': population});
 };
