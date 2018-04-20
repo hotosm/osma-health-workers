@@ -7,8 +7,8 @@ S3BUCKET=$2
 MAPBOXACCOUNT=$3
 MAPBOXTOKEN=$4 # probably move to envvar when needed
 
-wget "$TilesURL/$COUNTRY.mbtiles.gz"
-gunzip "$COUNTRY.mbtiles.gz"
+# wget "$TilesURL/$COUNTRY.mbtiles.gz"
+# gunzip "$COUNTRY.mbtiles.gz"
 
 # extract all the residential buildings
 echo '1. Extract buildings...'
@@ -28,14 +28,14 @@ node ./workers/edit-recency.js $COUNTRY $WORKDIR
 
 # download map completeness json
 echo '5. Download compeleteness predictions...'
-wget http://s3.amazonaws.com/hot-osm/$COUNTRY-predict.json -O $WORKDIR/$COUNTRY/$COUNTRY-predict.json
+wget http://s3.amazonaws.com/hotosm-population/predict/$COUNTRY.json -O $WORKDIR/$COUNTRY/$COUNTRY-predictions.json
 
 # create tileset for map completeness
 echo '6. Create map completeness tileset...'
-node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predict.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
+node ./workers/map-completeness-tiles.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json | tippecanoe -l completeness -f -o $WORKDIR/$COUNTRY/completeness.mbtiles
 
 # get the domain of predicted indices
-node ./workers/completeness-domain.js $WORKDIR/$COUNTRY/$COUNTRY-predict.json > $WORKDIR/$COUNTRY/domain.json
+node ./workers/completeness-domain.js $WORKDIR/$COUNTRY/$COUNTRY-predictions.json > $WORKDIR/$COUNTRY/domain.json
 
 # prepare completeness per aoi
 echo '7. Prepare completeness per AoI...'
