@@ -6,7 +6,6 @@ var path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 const turfBbox = require('@turf/bbox').default;
 var units = 0;
-var averageCompleteness = 0;
 const country = argv._[0];
 const workdir = argv._[1];
 const mbtilesPath = workdir + '/' + country + '/' + 'completeness.mbtiles';
@@ -19,16 +18,19 @@ boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
     const aoi = b.properties.id.toLowerCase();
 
-    getAverage(bbox, mbtilesPath, (err, averageCompleteness) => {
+    getAverage(bbox, mbtilesPath, (err, data) => {
         const boundaryLocation = workdir + '/' + country + '/' + aoi;
         let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
-        buildingStats['averageCompleteness'] = averageCompleteness;
+        buildingStats['averageCompleteness'] = data.completeness;
+        buildingStats['population'] = data.population;
         fs.writeFileSync(boundaryLocation + '/building-stats.json', JSON.stringify(buildingStats), {'encoding': 'utf-8'});
     });
 
 });
 
 function getAverage(bbox, mbtilesPath, callback) {
+    var averageCompleteness = 0;
+    var population = 0;
     tileReduce({
         bbox: bbox,
         zoom: 12,
@@ -45,12 +47,13 @@ function getAverage(bbox, mbtilesPath, callback) {
         if (data.sumIndex) {
             units = units + data.units;
             averageCompleteness = averageCompleteness + data.sumIndex;
+            population = population + data.population;
         }
     })
     .on('end', function() {
         if (units) {
             averageCompleteness = averageCompleteness/units;
         }
-        callback(null, averageCompleteness);
+        callback(null, { 'completeness': averageCompleteness, 'population': population });
     });
 }
