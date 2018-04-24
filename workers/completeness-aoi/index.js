@@ -61,6 +61,6 @@ function getAverage(bbox, mbtilesPath, callback) {
             averageCompleteness = averageCompleteness/units;
             completenessPercentage = (predictionOSM - actualOSM)/actualOSM;
         }
-        callback(null, { 'completeness': averageCompleteness, 'population': population, 'completenessPrecentage': completenessPercentage });
+        callback(null, { 'completeness': averageCompleteness, 'population': population, 'completenessPercentage': completenessPercentage });
     });
 }
