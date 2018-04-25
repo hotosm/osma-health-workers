@@ -23,6 +23,7 @@ boundaries.features.forEach((b) => {
         let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
         buildingStats['averageCompleteness'] = data.completeness;
         buildingStats['population'] = data.population;
+        buildingStats['completenessPercentage'] = data.completenessPercentage
         fs.writeFileSync(boundaryLocation + '/building-stats.json', JSON.stringify(buildingStats), {'encoding': 'utf-8'});
     });
 
@@ -31,6 +32,9 @@ boundaries.features.forEach((b) => {
 function getAverage(bbox, mbtilesPath, callback) {
     var averageCompleteness = 0;
     var population = 0;
+    var actualOSM = 0;
+    var predictionOSM = 0;
+    var completenessPercentage = 0;
     tileReduce({
         bbox: bbox,
         zoom: 12,
@@ -48,12 +52,15 @@ function getAverage(bbox, mbtilesPath, callback) {
             units = units + data.units;
             averageCompleteness = averageCompleteness + data.sumIndex;
             population = population + data.population;
+            actualOSM = actualOSM + data.actualOSM;
+            predictionOSM = predictionOSM + data.predictionOSM;
         }
     })
     .on('end', function() {
         if (units) {
             averageCompleteness = averageCompleteness/units;
+            completenessPercentage = (predictionOSM - actualOSM)/actualOSM;
         }
-        callback(null, { 'completeness': averageCompleteness, 'population': population });
+        callback(null, { 'completeness': averageCompleteness, 'population': population, 'completenessPercentage': completenessPercentage });
     });
 }
