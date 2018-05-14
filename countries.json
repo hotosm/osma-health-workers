@@ -7,7 +7,8 @@
           "properties": {
             "type": "village",
             "name": "Motopi",
-            "id": "motopi"
+            "id": "motopi",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/47e2a8ad-f44d-428a-b429-d8b8fdce2e75"
           },
           "geometry": {
             "type": "Polygon",
@@ -1218,7 +1219,8 @@
           "properties": {
             "type": "village",
             "name": "Nata",
-            "id": "nata"
+            "id": "nata",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/f74e0811-7661-417d-8904-46f8c9e8ed2d"
           },
           "geometry": {
             "type": "Polygon",
@@ -2771,7 +2773,8 @@
           "properties": {
             "type": "village",
             "name": "Mathathane",
-            "id": "mathathane"
+            "id": "mathathane",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/f7de5a27-c6a3-4652-91f1-8e965d5e5216"
           },
           "geometry": {
             "type": "Polygon",
@@ -10278,7 +10281,8 @@
           "properties": {
             "name": "Tsau",
             "id": "tsau",
-            "type": "village"
+            "type": "village",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/91b475db-3b4b-457e-8e33-db48e138a424"
           },
           "geometry": {
             "type": "Polygon",
@@ -12953,7 +12957,8 @@
           "properties": {
             "name": "Gumare",
             "id": "gumare",
-            "type": "village"
+            "type": "village",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/743a2112-b258-4344-b63f-a1bd0f71df5e"
           },
           "geometry": {
             "type": "Polygon",
@@ -15164,7 +15169,8 @@
           "properties": {
             "name": "Chobe District",
             "id": "chobe",
-            "type": "district"
+            "type": "district",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/1deb8957-a372-4a8a-a136-d23bce2c7a81"
           },
           "geometry": {
             "type": "Polygon",
