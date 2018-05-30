@@ -32,8 +32,9 @@ const boundaries = countries[country];
 
 runOsmlint = (aoi, bbox, mbtilesPath, callback) => {
     osmlint.incompleteResidentialBuildings({zoom: 12, bbox: bbox}, mbtilesPath, function (err, data) {
-        const result = {};
-        result[aoi] = data;
+        if (err) {
+            callback(err, aoi);
+        }
         const boundaryLocation = workdir + '/' + country + '/' + aoi;
         if (!fs.existsSync(boundaryLocation)) {
             fs.mkdirSync(boundaryLocation);
@@ -50,8 +51,6 @@ boundaries.features.forEach((b) => {
     // run osmlint for each of the boundary and store stats in the workdir
     queue.defer(runOsmlint, aoi, bbox, mbtilesPath);
 });
-
-
 
 queue.awaitAll(function(err, data) {
     if (err) {
