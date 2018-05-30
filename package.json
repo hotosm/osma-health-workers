@@ -21,6 +21,7 @@
     "@mapbox/tilebelt": "^1.0.1",
     "@turf/bbox": "^6.0.0",
     "@turf/helpers": "^6.1.3",
+    "d3-queue": "^3.0.7",
     "lodash": "^4.17.5",
     "minimist": "^1.2.0",
     "osmlint": "git+https://git@github.com/hotosm/osmlint.git"
