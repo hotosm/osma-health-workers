@@ -11,10 +11,15 @@ const argv = require('../node_modules/minimist')(process.argv.slice(2));
 const d3 = require('d3-queue');
 const country = argv._[0];
 const workdir = argv._[1];
-const mbtilesPath = country + '.mbtiles';
+const mbtilesPath = 'latest.planet.mbtiles';
+
+// read country boundaries
+const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
+const boundaries = countries[country].boundaries;
+const countryBBox = countries[country].bbox;
 
 // run osmlint for the entire country
-osmlint.incompleteResidentialBuildings({zoom: 12}, mbtilesPath, (err, data) => {
+osmlint.incompleteResidentialBuildings({zoom: 12, bbox: countryBBox}, mbtilesPath, (err, data) => {
     if (err) {
         console.error('Error:', err);
         return;
@@ -25,10 +30,6 @@ osmlint.incompleteResidentialBuildings({zoom: 12}, mbtilesPath, (err, data) => {
     }
     fs.writeFileSync(countryLocation + '/building-stats.json', JSON.stringify(data), {'encoding': 'utf-8'});
 });
-
-// read country boundaries
-const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
-const boundaries = countries[country];
 
 runOsmlint = (aoi, bbox, mbtilesPath, callback) => {
     osmlint.incompleteResidentialBuildings({zoom: 12, bbox: bbox}, mbtilesPath, function (err, data) {

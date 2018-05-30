@@ -7,8 +7,8 @@ S3BUCKET=$2
 MAPBOXACCOUNT=$3
 MAPBOXTOKEN=$4 # probably move to envvar when needed
 
-wget "$TilesURL/$COUNTRY.mbtiles.gz"
-gunzip "$COUNTRY.mbtiles.gz"
+wget https://s3.amazonaws.com/mapbox/osm-qa-tiles-production/latest.planet.mbtiles.gz
+gunzip latest.planet.gz
 
 # extract all the residential buildings
 echo '1. Extract buildings...'

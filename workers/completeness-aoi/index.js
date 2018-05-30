@@ -12,7 +12,7 @@ const mbtilesPath = workdir + '/' + country + '/' + 'completeness.mbtiles';
 
 // read country boundaries
 const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
-const boundaries = countries[country];
+const boundaries = countries[country].boundaries;
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);

@@ -13,11 +13,11 @@ const argv = require('../node_modules/minimist')(process.argv.slice(2));
 const d3 = require('d3-queue');
 const country = argv._[0];
 const workdir = argv._[1];
-const mbtilesPath = country + '.mbtiles';
+const mbtilesPath = 'latest.planet.mbtiles';
 
 // read country boundaries
 const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
-const boundaries = countries[country];
+const boundaries = countries[country].boundaries;
 
 runOsmlint = (aoi, bbox, mbtilesPath, callback) => {
     osmlint.untaggedWays({zoom: 12, bbox: bbox}, mbtilesPath, function (err, data) {

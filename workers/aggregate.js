@@ -13,7 +13,7 @@ const workdir = argv._[1];
 
 // read country boundaries
 const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
-const boundaries = countries[country];
+const boundaries = countries[country].boundaries;
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
