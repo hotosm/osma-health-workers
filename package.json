@@ -24,6 +24,6 @@
     "d3-queue": "^3.0.7",
     "lodash": "^4.17.5",
     "minimist": "^1.2.0",
-    "osmlint": "git+https://git@github.com/hotosm/osmlint.git#5d5935a8dbcc56844df2a854f8174266860180a9"
+    "osmlint": "git+https://git@github.com/hotosm/osmlint.git"
   }
 }
