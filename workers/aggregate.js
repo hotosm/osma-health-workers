@@ -20,12 +20,15 @@ boundaries.features.forEach((b) => {
     const aoi = b.properties.id.toLowerCase();
 
   let stats = {};
+  let completenessStats = {};
   const boundaryLocation = workdir + '/' + country + '/' + aoi;
   const buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
   const timeBins = JSON.parse(fs.readFileSync(boundaryLocation + '/time-bins.json'), {'encoding': 'utf-8'});
   stats['building-stats'] = buildingStats;
   stats['time-bins'] = timeBins;
   stats['timestamp'] = new Date().toISOString();
+  completenessStats[country + '-' + aoi] = buildingStats.averageCompleteness;
 
   fs.writeFileSync(boundaryLocation + '/stats.json', JSON.stringify(stats), { 'encoding': 'utf-8' });
+  fs.writeFileSync(workdir + '/stats.json', JSON.stringify(completenessStats), { 'encoding': 'utf-8' });
 });
