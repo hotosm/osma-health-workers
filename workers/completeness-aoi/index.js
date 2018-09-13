@@ -13,6 +13,7 @@ const mbtilesPath = workdir + '/' + country + '/' + 'completeness.mbtiles';
 // read country boundaries
 const countries = JSON.parse(fs.readFileSync('countries.json'), {'encoding': 'utf-8'});
 const boundaries = countries[country];
+var completenessStats = {};
 
 boundaries.features.forEach((b) => {
     const bbox = turfBbox(b);
@@ -25,8 +26,12 @@ boundaries.features.forEach((b) => {
         buildingStats['population'] = data.population;
         buildingStats['completenessPercentage'] = data.completenessPercentage
         fs.writeFileSync(boundaryLocation + '/building-stats.json', JSON.stringify(buildingStats), {'encoding': 'utf-8'});
-    });
+        completenessStats[country + '_' + aoi] = data.completeness;
 
+        if (Object.keys(completenessStats).length === boundaries.features.length) {
+          fs.writeFileSync(workdir + '/stats.json', JSON.stringify(completenessStats), { 'encoding': 'utf-8' });
+        }
+    });
 });
 
 function getAverage(bbox, mbtilesPath, callback) {
