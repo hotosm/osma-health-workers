@@ -20,16 +20,29 @@ boundaries.features.forEach((b) => {
     const aoi = b.properties.id.toLowerCase();
 
     getAverage(bbox, mbtilesPath, (err, data) => {
-        const boundaryLocation = workdir + '/' + country + '/' + aoi;
-        let buildingStats = JSON.parse(fs.readFileSync(boundaryLocation + '/building-stats.json', { 'encoding': 'utf-8' }));
+        const boundaryLocation = `${workdir}/${country}/${aoi}`;
+        let buildingStats = JSON.parse(
+          fs.readFileSync(
+            `${boundaryLocation}/building-stats.json`,
+            {'encoding': 'utf-8'}
+          )
+        );
         buildingStats['averageCompleteness'] = data.completeness;
         buildingStats['population'] = data.population;
         buildingStats['completenessPercentage'] = data.completenessPercentage
-        fs.writeFileSync(boundaryLocation + '/building-stats.json', JSON.stringify(buildingStats), {'encoding': 'utf-8'});
-        completenessStats[country + '_' + aoi] = data.completeness;
+        fs.writeFileSync(
+          `${boundaryLocation}/building-stats.json`,
+          JSON.stringify(buildingStats),
+          {'encoding': 'utf-8'}
+        );
+        completenessStats[`${country}_${aoi}`] = data.completeness;
 
         if (Object.keys(completenessStats).length === boundaries.features.length) {
-          fs.writeFileSync(workdir + '/stats.json', JSON.stringify(completenessStats), { 'encoding': 'utf-8' });
+          fs.writeFileSync(
+            `${workdir}/${country}/stats.json`,
+            JSON.stringify(completenessStats),
+            {'encoding': 'utf-8'}
+          );
         }
     });
 });
