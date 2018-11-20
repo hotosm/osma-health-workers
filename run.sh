@@ -3,9 +3,11 @@
 TilesURL="https://s3.amazonaws.com/mapbox/osm-qa-tiles-production/latest.country"
 WORKDIR="data"
 COUNTRY=$1
-S3BUCKET=$2
-MAPBOXACCOUNT=$3
-MAPBOXTOKEN=$4 # probably move to envvar when needed
+MIN_ZOOM_LEVEL=$2
+MAX_ZOOM_LEVEL=$3
+S3BUCKET=$4
+MAPBOXACCOUNT=$5
+MAPBOXTOKEN=$6 # probably move to envvar when needed
 
 wget "$TilesURL/$COUNTRY.mbtiles.gz"
 gunzip "$COUNTRY.mbtiles.gz"
@@ -16,7 +18,7 @@ echo '1. Extract buildings...'
 
 # create a tileset of all buildings
 echo '2. Creating tileset of all buildings...'
-tippecanoe -f -z 15 -Z 12 -l osm $WORKDIR/$COUNTRY/buildings.json -o $WORKDIR/$COUNTRY/buildings.mbtiles
+tippecanoe -f -z $MAX_ZOOM_LEVEL -Z $MIN_ZOOM_LEVEL -l osm $WORKDIR/$COUNTRY/buildings.json -o $WORKDIR/$COUNTRY/buildings.mbtiles
 
 # run attribute completeness validator and get stats
 echo '3. Run attribute completeness validator...'
