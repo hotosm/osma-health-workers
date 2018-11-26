@@ -6,6 +6,27 @@
           "type": "Feature",
           "properties": {
             "type": "village",
+            "name": "Zambia",
+            "id": "zambia",
+            "hot_export": "https://export.hotosm.org/en/v3/exports/c6e7e347-f5be-4cc6-af57-487e3ed7eb5e"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [28.14,-15.55],
+                [28.14,-15.26],
+                [28.44,-15.26],
+                [28.44,-15.55],
+                [28.14,-15.55]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "type": "village",
             "name": "Motopi",
             "id": "motopi",
             "hot_export": "https://export.hotosm.org/en/v3/exports/47e2a8ad-f44d-428a-b429-d8b8fdce2e75"
@@ -38981,5 +39002,5 @@
           }
         }
       ]
-    } 
+    }
 }
