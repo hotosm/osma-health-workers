@@ -6,8 +6,8 @@
           "type": "Feature",
           "properties": {
             "type": "village",
-            "name": "Zambia",
-            "id": "zambia",
+            "name": "Lusaka",
+            "id": "lusaka",
             "hot_export": "https://export.hotosm.org/en/v3/exports/c6e7e347-f5be-4cc6-af57-487e3ed7eb5e"
           },
           "geometry": {
