@@ -1,5 +1,5 @@
 {
-  "botswana":{
+  "zambia":{
       "type": "FeatureCollection",
       "features": [
         {
@@ -23,6 +23,11 @@
             ]
           }
         },
+      ]
+  },
+  "botswana":{
+      "type": "FeatureCollection",
+      "features": [
         {
           "type": "Feature",
           "properties": {
